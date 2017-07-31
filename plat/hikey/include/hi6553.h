@@ -41,6 +41,7 @@
 #define DISABLE6_XO_CLK_RF2			(1 << 4)
 
 #define VERSION_REG				0x000
+#define IRQ2_MASK				0x008
 #define ENABLE2_LDO1_8				0x029
 #define DISABLE2_LDO1_8				0x02a
 #define ONOFF_STATUS2_LDO1_8			0x02b

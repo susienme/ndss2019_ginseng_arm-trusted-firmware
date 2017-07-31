@@ -399,6 +399,11 @@ static void hikey_hi6553_init(void)
 
 	/* select 32.764KHz */
 	hi6553_write_8(CLK19M2_600_586_EN, 0x01);
+
+	/* Disable PMIC internal interrupt */
+	data = hi6553_read_8(IRQ2_MASK);
+	data = data | 0x3;
+	hi6553_write_8(IRQ2_MASK, data);
 }
 
 static void hikey_gpio_init(void)
@@ -430,6 +435,10 @@ static void hikey_gpio_init(void)
 	gpio_direction_output(33);
 	gpio_direction_output(34);
 	gpio_direction_output(35);
+
+	/* Clear GPIO5 and GPIO6 interrutps */
+	mmio_write_32(GPIO5_BASE + 0x41C, 0xFF);
+	mmio_write_32(GPIO6_BASE + 0x41C, 0xFF);
 
 	/* Initialize PWR_HOLD GPIO */
 	gpio_set_value(0, 1);
