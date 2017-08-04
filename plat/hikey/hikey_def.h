@@ -46,12 +46,18 @@
 #define PLAT_TRUSTED_DRAM_ID	1
 
 /*
- * DRAM at 0x0000_0000 is divided in two regions:
- *   - Secure DRAM (default is the top 16MB)
+ * DRAM (1 GB) at 0x0000_0000 is divided in several regions:
+ *   - Secure DRAM (default is the top 16MB) used by OP-TEE
+ *   - Non-secure DRAM used by OP-TEE (shared memory and padding) (4MB)
+ *   - Secure DRAM (4MB aligned on 4MB) for OP-TEE's "Secure Data Path" feature
  *   - Non-Secure DRAM (remaining DRAM starting at DRAM_BASE)
  */
 #define DRAM_SEC_SIZE			0x01000000
 #define DRAM_SEC_BASE			(DRAM_BASE + DRAM_SIZE - DRAM_SEC_SIZE)
+
+#define DRAM_SDP_SIZE			0x00400000
+#define DRAM_SDP_BASE			(DRAM_SEC_BASE - 0x400000 /* align */ - \
+					 DRAM_SDP_SIZE)
 
 #define DRAM_NS_BASE			DRAM_BASE
 #define DRAM_NS_SIZE			(DRAM_SIZE - DRAM_SEC_SIZE)
