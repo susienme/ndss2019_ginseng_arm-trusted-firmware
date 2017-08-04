@@ -41,6 +41,7 @@
 #define DISABLE6_XO_CLK_RF2			(1 << 4)
 
 #define VERSION_REG				0x000
+#define IRQ2_MASK				0x008
 #define ENABLE2_LDO1_8				0x029
 #define DISABLE2_LDO1_8				0x02a
 #define ONOFF_STATUS2_LDO1_8			0x02b
@@ -70,6 +71,7 @@
 #define LDO15_REG_ADJ				0x080
 #define LDO19_REG_ADJ				0x084
 #define LDO20_REG_ADJ				0x085
+#define LDO21_REG_ADJ				0x086
 #define LDO22_REG_ADJ				0x087
 #define DR_LED_CTRL				0x098
 #define DR_OUT_CTRL				0x099

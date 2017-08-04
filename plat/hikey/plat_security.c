@@ -90,13 +90,17 @@ static int is_power_of_two(uint32_t x)
  * region_size must be a power of 2 and at least 64KB
  * region_base must be region_size aligned
  */
-static void sec_protect(uint32_t region_base, uint32_t region_size)
+static void sec_protect(uint32_t region_base, uint32_t region_size,
+			int region)
 {
 	volatile struct int_en_reg *int_en_reg ;
 	volatile struct rgn_map_reg *rgn_map_reg;
 	volatile struct rgn_attr_reg *rgn_attr_reg;
 	uint32_t i = 0;
 
+	if (region < 1 || region > 15) {
+		ERROR("Secure region number is invalid\n");
+	}
 	if (!is_power_of_two(region_size) || region_size < 0x10000) {
 		ERROR("Secure region size is not a power of 2 >= 64KB\n");
 		return;
@@ -113,8 +117,8 @@ static void sec_protect(uint32_t region_base, uint32_t region_size)
 	int_en_reg->in_en = 0x1;
 
 	for (i = 0; i < PORTNUM_MAX; i++) {
-		rgn_map_reg = get_rgn_map_reg(MDDRC_SECURITY_BASE, 1, i);
-		rgn_attr_reg = get_rgn_attr_reg(MDDRC_SECURITY_BASE, 1, i);
+		rgn_map_reg = get_rgn_map_reg(MDDRC_SECURITY_BASE, region, i);
+		rgn_attr_reg = get_rgn_attr_reg(MDDRC_SECURITY_BASE, region, i);
 		rgn_map_reg->rgn_base_addr = region_base >> 16;
 		rgn_attr_reg->subrgn_disable = 0x0;
 		rgn_attr_reg->sp = (i == 3) ? 0xC : 0x0;
@@ -128,5 +132,6 @@ static void sec_protect(uint32_t region_base, uint32_t region_size)
  ******************************************************************************/
 void plat_security_setup(void)
 {
-	sec_protect(DRAM_SEC_BASE, DRAM_SEC_SIZE);
+	sec_protect(DRAM_SEC_BASE, DRAM_SEC_SIZE, 1);
+	sec_protect(DRAM_SDP_BASE, DRAM_SDP_SIZE, 2);
 }
