@@ -98,7 +98,13 @@ int hisi_pwrc_setup(void)
 	       pm_asm_code_end - pm_asm_code);
 
 	reg = mmio_read_32(0xF7800000 + 0x004);
+
+	/* Remap SRAM address */
 	reg |= BIT(0x1) | BIT(17);
+
+	/* Enable reset signal for watchdog */
+	reg |= BIT(0x0) | BIT(16);
+
 	mmio_write_32(0xF7800000 + 0x004, reg);
 
 	return 0;
