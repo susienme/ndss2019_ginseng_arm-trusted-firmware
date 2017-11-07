@@ -9,7 +9,12 @@ ifeq (${ARCH}, aarch64)
   # DRAM (if available) or the TZC secured area of DRAM.
   # Trusted SRAM is the default.
 
-  ARM_TSP_RAM_LOCATION	:=	tsram
+  ifneq (${TRUSTED_BOARD_BOOT},0)
+    ARM_TSP_RAM_LOCATION	?=	dram
+  else
+    ARM_TSP_RAM_LOCATION	?=	tsram
+  endif
+
   ifeq (${ARM_TSP_RAM_LOCATION}, tsram)
     ARM_TSP_RAM_LOCATION_ID = ARM_TRUSTED_SRAM_ID
   else ifeq (${ARM_TSP_RAM_LOCATION}, tdram)
@@ -21,13 +26,16 @@ ifeq (${ARCH}, aarch64)
   endif
 
   # Process flags
-  $(eval $(call add_define,ARM_TSP_RAM_LOCATION_ID))
-
   # Process ARM_BL31_IN_DRAM flag
   ARM_BL31_IN_DRAM		:=	0
   $(eval $(call assert_boolean,ARM_BL31_IN_DRAM))
   $(eval $(call add_define,ARM_BL31_IN_DRAM))
+else
+  ARM_TSP_RAM_LOCATION_ID = ARM_TRUSTED_SRAM_ID
 endif
+
+$(eval $(call add_define,ARM_TSP_RAM_LOCATION_ID))
+
 
 # For the original power-state parameter format, the State-ID can be encoded
 # according to the recommended encoding or zero. This flag determines which
