@@ -4,6 +4,15 @@
 # SPDX-License-Identifier: BSD-3-Clause
 #
 
+ifneq ($(RUST_BUILD_RELEASE),1)
+    $(error We do not support debug mode anymore for Rust lib)
+else
+RUST_LIB =  spath_rust/target/aarch64-unknown-linux-gnu/release/libspath_lib.a
+endif
+
+RUST_LIB +=	spath_rust/src/sha1-armv8.o \
+			spath_rust/src/aesv8-armx64.o
+
 # Report an error if the eval make function is not available.
 $(eval eval_available := T)
 ifneq (${eval_available},T)
@@ -304,8 +313,8 @@ bl${1}_dirs: | ${OBJ_DIRS}
 $(eval $(call MAKE_OBJS,$(BUILD_DIR),$(SOURCES),$(1)))
 $(eval $(call MAKE_LD,$(LINKERFILE),$(BL_LINKERFILE),$(1)))
 
-$(ELF): $(OBJS) $(LINKERFILE) | bl$(1)_dirs
-	@echo "  LD      $$@"
+$(ELF): $(OBJS) $(LINKERFILE) $(RUST_LIB) | bl$(1)_dirs
+	@echo "  LD-ELF      $$@"
 ifdef MAKE_BUILD_STRINGS
 	$(call MAKE_BUILD_STRINGS, $(BUILD_DIR)/build_message.o)
 else
@@ -314,7 +323,7 @@ else
 		$$(CC) $$(TF_CFLAGS) $$(CFLAGS) -xc -c - -o $(BUILD_DIR)/build_message.o
 endif
 	$$(Q)$$(LD) -o $$@ $$(TF_LDFLAGS) $$(LDFLAGS) -Map=$(MAPFILE) \
-		--script $(LINKERFILE) $(BUILD_DIR)/build_message.o $(OBJS) $(LDLIBS)
+		--script $(LINKERFILE) $(BUILD_DIR)/build_message.o $(OBJS) $(LDLIBS) $(RUST_LIB)
 
 $(DUMP): $(ELF)
 	@echo "  OD      $$@"

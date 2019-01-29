@@ -140,3 +140,28 @@ void tf_printf(const char *fmt, ...)
 	tf_vprintf(fmt, va);
 	va_end(va);
 }
+
+// for degbugging...
+void printStr_native(const char *str) {
+	tf_string_print(str);
+}
+
+void print_nl() {
+	tf_string_print("\n");
+}
+
+void printHex_native(const unsigned long h) {
+	tf_printf(" 0x%lx ", h);
+}
+
+void printDec_native(const unsigned long d) {
+	tf_printf("%ld", d);
+}
+
+void printHexPadding_native(const unsigned char h) {
+	if (h > 0xf) {
+		tf_printf("%x", h);
+	} else {
+		tf_printf("0%x", h);
+	}
+}

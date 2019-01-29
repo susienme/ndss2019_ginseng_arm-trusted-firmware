@@ -24,3 +24,17 @@ GPATH
 GRTAGS
 GSYMS
 GTAGS
+
+#Rust
+#Cargo.lock
+target/
+spath_rust/aarch64-unknown-linux-gnu2.json_test
+spath_rust/src/sha1-armv8.o
+spath_rust/src/aesv8-armx64.o
+spath_rust/src/smc.rs
+spath_rust/rustLib.S
+bl31/ginseng.c_old.c
+
+#other
+.NDSS_changed_files
+.NDSS_diff

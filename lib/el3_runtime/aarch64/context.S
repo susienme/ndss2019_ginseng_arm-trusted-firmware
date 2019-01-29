@@ -18,6 +18,7 @@
 	.global	save_gp_registers
 	.global	restore_gp_registers_eret
 	.global	restore_gp_registers_callee_eret
+	.global	restore_gp_registers_callee_eret_ginseng
 	.global	el3_exit
 
 /* -----------------------------------------------------
@@ -374,6 +375,7 @@ func restore_gp_registers_callee_eret
 	ldp	x10, x11, [sp, #CTX_GPREGS_OFFSET + CTX_GPREG_X10]
 	ldp	x12, x13, [sp, #CTX_GPREGS_OFFSET + CTX_GPREG_X12]
 	ldp	x14, x15, [sp, #CTX_GPREGS_OFFSET + CTX_GPREG_X14]
+restore_gp_registers_callee_eret_ginseng:
 	ldp	x18, x19, [sp, #CTX_GPREGS_OFFSET + CTX_GPREG_X18]
 	ldp	x20, x21, [sp, #CTX_GPREGS_OFFSET + CTX_GPREG_X20]
 	ldp	x22, x23, [sp, #CTX_GPREGS_OFFSET + CTX_GPREG_X22]

@@ -194,10 +194,10 @@ INCLUDES		+=	-Iinclude/bl1				\
 				-Iinclude/lib/xlat_tables		\
 				-Iinclude/plat/common			\
 				-Iinclude/services			\
+				-Iinclude/fake			\
 				${PLAT_INCLUDES}			\
 				${SPD_INCLUDES}				\
 				-Iinclude/tools_share
-
 
 ################################################################################
 # Generic definitions

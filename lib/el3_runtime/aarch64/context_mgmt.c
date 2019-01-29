@@ -102,7 +102,7 @@ static void cm_init_context_common(cpu_context_t *ctx, const entry_point_info_t 
 	if (EP_GET_ST(ep->h.attr))
 		scr_el3 |= SCR_ST_BIT;
 
-#ifndef HANDLE_EA_EL3_FIRST
+#if 0
 	/*
 	 * SCR_EL3.EA: Do not route External Abort and SError Interrupt External
 	 *  to EL3 when executing at a lower EL. When executing at EL3, External

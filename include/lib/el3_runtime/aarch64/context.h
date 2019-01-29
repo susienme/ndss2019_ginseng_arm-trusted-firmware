@@ -94,6 +94,7 @@
  * AArch32 registers.
  */
 #if CTX_INCLUDE_AARCH32_REGS
+///////////////////////////////////////
 #define CTX_SPSR_ABT		U(0xc0)  /* Align to the next 16 byte boundary */
 #define CTX_SPSR_UND		U(0xc8)
 #define CTX_SPSR_IRQ		U(0xd0)

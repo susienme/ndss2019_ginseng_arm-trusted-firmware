@@ -1,0 +1,1 @@
+../../linux/include/linux/ginseng_smc_cmd.h

@@ -32,7 +32,7 @@
  *   - Secure DDR (4MB aligned on 4MB) for OP-TEE's "Secure Data Path" feature
  *   - Non-secure DDR (8MB) reserved for OP-TEE's future use
  */
-#define DDR_SEC_SIZE			0x01000000
+#define DDR_SEC_SIZE			0x01100000
 #define DDR_SEC_BASE			(DDR_BASE + DDR_SIZE - DDR_SEC_SIZE) /* 0x3F000000 */
 
 #define DDR_SDP_SIZE			0x00400000
@@ -53,6 +53,7 @@
  * PL011 related constants
  */
 #define PL011_UART0_BASE		0xF8015000
+#define PL011_UART2_BASE		0xF7112000
 #define PL011_UART3_BASE		0xF7113000
 #define PL011_BAUDRATE			115200
 #define PL011_UART_CLK_IN_HZ		19200000

@@ -10,6 +10,7 @@
 #include <pmf_asm_macros.S>
 #include <runtime_instr.h>
 #include <xlat_tables_defs.h>
+#include <context.h>
 
 	.globl	bl31_entrypoint
 	.globl	bl31_warm_entrypoint

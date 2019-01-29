@@ -187,6 +187,7 @@ static void hikey_gpio_init(void)
 	gpio_set_value(33, GPIO_LEVEL_LOW);
 	gpio_set_direction(34, GPIO_DIR_OUT);	/* LED3 */
 	gpio_set_direction(35, GPIO_DIR_OUT);	/* LED4 */
+	gpio_set_value(35, GPIO_LEVEL_HIGH);
 }
 
 static void hikey_pmussi_init(void)

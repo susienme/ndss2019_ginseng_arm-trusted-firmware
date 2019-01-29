@@ -17,6 +17,7 @@
  */
 
 #define LOG_LEVEL_NONE			0
+#define LOG_LEVEL_YMH			5
 #define LOG_LEVEL_ERROR			10
 #define LOG_LEVEL_NOTICE		20
 #define LOG_LEVEL_WARNING		30
@@ -37,6 +38,12 @@
 #define LOG_MARKER_WARNING		"\x1e"	/* 30 */
 #define LOG_MARKER_INFO			"\x28"	/* 40 */
 #define LOG_MARKER_VERBOSE		"\x32"	/* 50 */
+
+#if LOG_LEVEL >= LOG_LEVEL_YMH
+# define YMH_LOG(...)	tf_printf("##YMH##: " __VA_ARGS__)
+#else
+# define YMH_LOG(...)
+#endif
 
 #if LOG_LEVEL >= LOG_LEVEL_NOTICE
 # define NOTICE(...)	tf_log(LOG_MARKER_NOTICE __VA_ARGS__)

@@ -18,9 +18,7 @@
  */
 
 /* Size of cacheable stacks */
-#define PLATFORM_STACK_SIZE		0x800
-
-#define FIRMWARE_WELCOME_STR		"Booting Trusted Firmware\n"
+#define PLATFORM_STACK_SIZE		0x1000
 
 #define PLATFORM_CACHE_LINE_SIZE	64
 #define PLATFORM_CLUSTER_COUNT		2
@@ -98,7 +96,7 @@
  * BL31 specific defines.
  */
 #define BL31_BASE			BL2_LIMIT /* 0xf985_8000 */
-#define BL31_LIMIT			0xF9898000
+#define BL31_LIMIT			(BL31_BASE + 0xC0000)
 
 /*
  * BL3-2 specific defines.
@@ -149,7 +147,7 @@
 /*
  * Platform specific page table and MMU setup constants
  */
-#define ADDR_SPACE_SIZE			(1ull << 32)
+#define ADDR_SPACE_SIZE			(1ull << 33)
 
 #if defined(IMAGE_BL1) || defined(IMAGE_BL32)
 #define MAX_XLAT_TABLES			3

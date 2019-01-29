@@ -90,8 +90,13 @@ void bl31_early_platform_setup(bl31_params_t *from_bl2,
 			       void *plat_params_from_bl2)
 #endif
 {
+	console_init(PL011_UART2_BASE, PL011_UART_CLK_IN_HZ, PL011_BAUDRATE);
+	YMH_LOG("SECURE console UART2 inited 0x%x\n", PL011_UART2_BASE);
+
 	/* Initialize the console to provide early debug support */
 	console_init(CONSOLE_BASE, PL011_UART_CLK_IN_HZ, PL011_BAUDRATE);
+
+	YMH_LOG("NON-SECURE CONSOLE UART3 INITED 0x%x\n", CONSOLE_BASE);
 
 	/* Initialize CCI driver */
 	cci_init(CCI400_BASE, cci_map, ARRAY_SIZE(cci_map));
@@ -183,4 +188,10 @@ void bl31_platform_setup(void)
 
 void bl31_plat_runtime_setup(void)
 {
+	/*static char buf[32];
+	__asm__ volatile (
+		"msr TPIDR_EL3, %[buf]"
+		:: [buf] "r" (buf)
+		:"memory"
+	);*/
 }

@@ -8,7 +8,6 @@
 #include <asm_macros.S>
 #include <bl_common.h>
 
-
 	.globl	bl2u_entrypoint
 
 

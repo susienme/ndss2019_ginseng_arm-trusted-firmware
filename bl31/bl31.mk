@@ -15,6 +15,7 @@ BL31_SOURCES		+=	bl31/bl31_main.c				\
 				common/runtime_svc.c				\
 				plat/common/aarch64/platform_mp_stack.S		\
 				services/std_svc/std_svc_setup.c		\
+				bl31/ginseng.c 						\
 				${PSCI_LIB_SOURCES}
 
 ifeq (${ENABLE_PMF}, 1)

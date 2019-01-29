@@ -131,6 +131,7 @@ func_deprecated platform_set_stack
 	cmp	x0, x1
 	ASM_ASSERT(eq)
 #endif
+10: b 10b
 	b	plat_set_my_stack
 endfunc_deprecated platform_set_stack
 

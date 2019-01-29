@@ -1,0 +1,10 @@
+CROSS_COMPILE=~/hikey/toolchains/aarch64/bin/aarch64-linux-gnu-
+XCC		=$(CROSS_COMPILE)gcc
+
+all:
+	src/ginsengCmdParser.py ../include/bl31/ginseng_smc_cmd.h src/smc.rs
+	src/ginsengCmdParser.py ../include/bl31/ginseng_schannel_cmd.h src/schannel.rs
+	$(XCC) -c src/sha1-armv8.S -o src/sha1-armv8.o
+	$(XCC) -c src/aesv8-armx64.S -o src/aesv8-armx64.o
+	xargo build --target=aarch64-unknown-linux-gnu `cat platformFeature.txt` --verbose
+	aarch64-linux-gnu-objdump -d ./target/aarch64-unknown-linux-gnu/debug/libspath_lib.a > rustLib.S
